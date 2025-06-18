@@ -1,0 +1,12 @@
+{
+    "name": "luna/home",
+    "description": "Luna Smart Home",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Luna\\": "src/"
+        }
+    }
+}
