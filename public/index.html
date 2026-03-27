@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HookView</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 24px;
+    }
+    h1 { font-size: 2rem; letter-spacing: -0.5px; }
+    p { color: #94a3b8; font-size: 0.95rem; }
+    button {
+      padding: 12px 28px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover { background: #4f46e5; }
+    #status { color: #94a3b8; font-size: 0.85rem; min-height: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🪝 HookView</h1>
+  <p>Inspect incoming webhooks in real time</p>
+  <button id="createBtn">Create New Endpoint</button>
+  <div id="status"></div>
+  <script src="/js/home.js"></script>
+</body>
+</html>
