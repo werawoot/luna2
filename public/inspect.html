@@ -20,13 +20,14 @@
     header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 14px 20px;
+      gap: 10px;
+      padding: 12px 16px;
       background: #1e2130;
       border-bottom: 1px solid #2d3148;
       flex-shrink: 0;
+      flex-wrap: wrap;
     }
-    header h1 { font-size: 1rem; font-weight: 600; }
+    header h1 { font-size: 1rem; font-weight: 600; white-space: nowrap; }
     #endpointUrl {
       font-size: 0.8rem;
       background: #0f1117;
@@ -36,27 +37,37 @@
       color: #a5b4fc;
       font-family: monospace;
       flex: 1;
+      min-width: 120px;
       cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    #copyBtn {
-      padding: 6px 14px;
+    .hdr-btn {
+      padding: 6px 12px;
       background: #6366f1;
       color: #fff;
       border: none;
       border-radius: 6px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
     }
-    #copyBtn:hover { background: #4f46e5; }
+    .hdr-btn:hover { background: #4f46e5; }
+    .hdr-btn.secondary {
+      background: #1e2130;
+      color: #94a3b8;
+      border: 1px solid #2d3148;
+    }
+    .hdr-btn.secondary:hover { background: #2d3148; color: #e2e8f0; }
     #wsStatus {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       padding: 4px 10px;
       border-radius: 99px;
       background: #374151;
       color: #9ca3af;
+      white-space: nowrap;
     }
     #wsStatus.connected { background: #064e3b; color: #6ee7b7; }
 
@@ -67,29 +78,132 @@
       overflow: hidden;
     }
 
-    /* Request list */
-    #requestList {
+    /* Sidebar */
+    #sidebar {
       width: 300px;
       flex-shrink: 0;
-      overflow-y: auto;
       border-right: 1px solid #2d3148;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    #requestList .empty {
-      padding: 24px 16px;
+
+    /* Sidebar header */
+    #sidebarHeader {
+      padding: 10px 12px 0;
+      background: #1e2130;
+      border-bottom: 1px solid #2d3148;
+      flex-shrink: 0;
+    }
+    #sidebarTitle {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    /* Search */
+    #searchWrap {
+      position: relative;
+      margin-bottom: 8px;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 6px 10px 6px 30px;
+      background: #0f1117;
+      border: 1px solid #2d3148;
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #searchInput:focus { border-color: #6366f1; }
+    #searchInput::placeholder { color: #4b5563; }
+    #searchIcon {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
       color: #4b5563;
       font-size: 0.85rem;
+      pointer-events: none;
+    }
+    #searchCount {
+      font-size: 0.72rem;
+      color: #6366f1;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Method filters */
+    #filterBar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 3px 8px;
+      border: 1px solid #2d3148;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #0f1117;
+      color: #6b7280;
+      transition: all 0.12s;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .filter-btn:hover { border-color: #6366f1; color: #e2e8f0; }
+    .filter-btn.active-ALL    { background: #374151; color: #e2e8f0; border-color: #6b7280; }
+    .filter-btn.active-GET    { background: #1d4ed8; color: #bfdbfe; border-color: #1d4ed8; }
+    .filter-btn.active-POST   { background: #065f46; color: #a7f3d0; border-color: #065f46; }
+    .filter-btn.active-PUT    { background: #92400e; color: #fde68a; border-color: #92400e; }
+    .filter-btn.active-PATCH  { background: #4c1d95; color: #ddd6fe; border-color: #4c1d95; }
+    .filter-btn.active-DELETE { background: #7f1d1d; color: #fca5a5; border-color: #7f1d1d; }
+    .filter-count {
+      background: rgba(255,255,255,0.15);
+      border-radius: 99px;
+      padding: 0 5px;
+      font-size: 0.62rem;
+    }
+
+    /* Request list */
+    #requestList {
+      flex: 1;
+      overflow-y: auto;
+    }
+    #requestList .empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px 16px;
+      color: #374151;
+      font-size: 0.85rem;
       text-align: center;
+      height: 200px;
+    }
+    #requestList .empty .empty-icon {
+      font-size: 2.5rem;
+      opacity: 0.5;
     }
     .req-item {
-      padding: 12px 16px;
+      padding: 11px 14px;
       border-bottom: 1px solid #1e2130;
       cursor: pointer;
       transition: background 0.1s;
     }
     .req-item:hover { background: #1e2130; }
-    .req-item.active { background: #1e2130; border-left: 3px solid #6366f1; }
+    .req-item.active { background: #1e2130; border-left: 3px solid #6366f1; padding-left: 11px; }
     .req-item .method {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       padding: 2px 6px;
       border-radius: 4px;
@@ -103,14 +217,14 @@
     .method-PATCH  { background: #4c1d95; color: #ddd6fe; }
     .method-OTHER  { background: #374151; color: #e5e7eb; }
     .req-item .path {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: #cbd5e1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .req-item .time {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #4b5563;
       margin-top: 2px;
     }
@@ -129,10 +243,20 @@
       font-size: 0.9rem;
       margin: auto;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
+    #detail .placeholder .ph-icon { font-size: 3rem; opacity: 0.4; }
     .section { display: flex; flex-direction: column; gap: 8px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .section h3 {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #6b7280;
@@ -142,26 +266,147 @@
       border: 1px solid #2d3148;
       border-radius: 8px;
       padding: 14px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-family: 'Menlo', 'Monaco', monospace;
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-all;
       color: #a5b4fc;
     }
+
+    /* Detail action buttons */
+    .detail-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 6px 14px;
+      border: 1px solid #2d3148;
+      background: #1e2130;
+      color: #94a3b8;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .action-btn:hover { background: #2d3148; color: #e2e8f0; border-color: #4b5563; }
+    .action-btn.success { background: #064e3b; color: #6ee7b7; border-color: #065f46; }
+
+    /* Replay modal */
+    #replayModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #replayModal.open { display: flex; }
+    #replayBox {
+      background: #1e2130;
+      border: 1px solid #2d3148;
+      border-radius: 12px;
+      padding: 24px;
+      width: min(500px, 90vw);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #replayBox h2 { font-size: 1rem; font-weight: 600; }
+    #replayBox label { font-size: 0.8rem; color: #94a3b8; }
+    #replayTargetUrl {
+      width: 100%;
+      padding: 8px 12px;
+      background: #0f1117;
+      border: 1px solid #2d3148;
+      border-radius: 6px;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    #replayTargetUrl:focus { border-color: #6366f1; }
+    #replayActions { display: flex; gap: 8px; justify-content: flex-end; }
+    #replayResult {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #replayResult.visible { display: flex; }
+    #replayResultMeta {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    #replayResultMeta .status-ok { color: #6ee7b7; }
+    #replayResultMeta .status-err { color: #fca5a5; }
+    #replayResultBody {
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.76rem;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>🪝 HookView</h1>
+    <h1>HookView</h1>
     <input id="endpointUrl" readonly title="Click to copy" />
-    <button id="copyBtn">Copy URL</button>
+    <button id="copyBtn" class="hdr-btn">Copy URL</button>
+    <button id="exportBtn" class="hdr-btn secondary">Export JSON</button>
     <span id="wsStatus">Connecting…</span>
   </header>
   <main>
-    <div id="requestList"><div class="empty">Waiting for requests…</div></div>
-    <div id="detail"><div class="placeholder">Select a request to inspect</div></div>
+    <div id="sidebar">
+      <div id="sidebarHeader">
+        <div id="sidebarTitle">Requests (0)</div>
+        <div id="searchWrap">
+          <span id="searchIcon">&#9906;</span>
+          <input id="searchInput" type="text" placeholder="Search path, method, body… (/)" autocomplete="off" />
+          <span id="searchCount"></span>
+        </div>
+        <div id="filterBar">
+          <button class="filter-btn active-ALL" data-method="ALL">ALL <span class="filter-count" data-badge="ALL">0</span></button>
+          <button class="filter-btn" data-method="GET">GET <span class="filter-count" data-badge="GET">0</span></button>
+          <button class="filter-btn" data-method="POST">POST <span class="filter-count" data-badge="POST">0</span></button>
+          <button class="filter-btn" data-method="PUT">PUT <span class="filter-count" data-badge="PUT">0</span></button>
+          <button class="filter-btn" data-method="PATCH">PATCH <span class="filter-count" data-badge="PATCH">0</span></button>
+          <button class="filter-btn" data-method="DELETE">DEL <span class="filter-count" data-badge="DELETE">0</span></button>
+        </div>
+      </div>
+      <div id="requestList">
+        <div class="empty">
+          <span class="empty-icon">&#128279;</span>
+          Waiting for requests…
+        </div>
+      </div>
+    </div>
+    <div id="detail">
+      <div class="placeholder">
+        <span class="ph-icon">&#128270;</span>
+        Select a request to inspect
+      </div>
+    </div>
   </main>
+
+  <!-- Replay modal -->
+  <div id="replayModal">
+    <div id="replayBox">
+      <h2>Replay Request</h2>
+      <div>
+        <label for="replayTargetUrl">Target URL</label>
+        <input id="replayTargetUrl" type="url" placeholder="https://example.com/webhook" />
+      </div>
+      <div id="replayResult">
+        <div id="replayResultMeta"></div>
+        <pre id="replayResultBody"></pre>
+      </div>
+      <div id="replayActions">
+        <button id="replayCancelBtn" class="action-btn">Cancel</button>
+        <button id="replaySendBtn" class="hdr-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/inspect.js"></script>
 </body>
 </html>
