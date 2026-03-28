@@ -40,4 +40,4 @@ function parseRequest(row) {
   };
 }
 
-module.exports = { saveRequest, getRequest, getRequestsBySession };
+module.exports = { saveRequest, getRequest, getRequestsBySession, parseRequest };
